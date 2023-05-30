@@ -12,12 +12,14 @@ document.addEventListener("DOMContentLoaded", function () {
         var slideHeader = slide.querySelector(".slide-header");
         if (index === activeSlideIndex) {
           slide.style.display = "block";
+          slide.classList.remove("slide-blur");
           slide.classList.add("slide-num2");
           slideHeader.classList.add("text");
         } else {
           slide.style.display = "none";
           slide.classList.remove("slide-num2");
           slideHeader.classList.remove("text");
+          slide.classList.add("slide-blur");
         }
       });
     } else {
@@ -99,8 +101,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (window.innerWidth < 768) {
       testimonials.forEach(function (testimonial, index) {
         if (index === activeTestimonialIndex) {
+          testimonial.classList.remove("slide-blur");
           testimonial.style.display = "block";
         } else {
+          testimonial.classList.add("slide-blur");
           testimonial.style.display = "none";
         }
       });
