@@ -1,11 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // reference to the targeted element
   var sliderContainer = document.querySelector(".slider");
   var slidesContainer = document.querySelector(".slides-container");
   var slides = Array.from(document.querySelectorAll(".slide1"));
   var scrollButtons = Array.from(document.querySelectorAll(".scroll > p"));
+
+  // actual width to tanslate
   var slideWidth = slides[0].offsetWidth;
   var activeSlideIndex = 0;
 
+  // function which checks for two main condition if in mobile view or not
+  // if yes then rather than sliding it'll show single slide and do the basic display none/block
   function showSlide() {
     if (window.innerWidth < 768) {
       slides.forEach(function (slide, index) {
@@ -23,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     } else {
+      // else than it'll do the sliding where one element won't be blurred n others would be by toggling the class
       slides.forEach(function (slide, index) {
         var slideHeader = slide.querySelector(".slide-header");
         if (index === activeSlideIndex) {
@@ -35,11 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
           slideHeader.classList.remove("text");
         }
       });
+      // by how much it'should translate too
       slidesContainer.style.transform = `translateX(-${
         activeSlideIndex * slideWidth
       }px)`;
     }
 
+    // for making the slide button which is p tag actually change according to main item
     scrollButtons.forEach(function (button, index) {
       if (index === activeSlideIndex) {
         button.classList.add("active");
@@ -49,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // making the the click function work in p tag
   function handleScrollButtonClick(index) {
     activeSlideIndex = index;
     showSlide();
@@ -71,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // autoslide if to check mobile viewport again to remove slide n add block/none
   function autoSlide() {
     if (window.innerWidth < 768) {
       activeSlideIndex = (activeSlideIndex + 1) % slides.length;
@@ -81,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  //auto slide time
   setInterval(autoSlide, 2400);
 
   showSlide();
